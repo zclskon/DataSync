@@ -12,12 +12,13 @@ def sync_table(server, name):
     db_server = tools.Db(**db_dict.get(server))
     df = pd.read_sql('select * from %s' % name, db_server.conn)
     db_server.close()
-    db_188 = tools.Db(**db_dict.get('db_188'))
-    db_188.execute('delete from %s.%s' % (server, name.split('.')[1]))
-    engine = create_engine(
-        'mysql+pymysql://%s:%s@%s:%s/%s' % (db_188.user, db_188.passwd, db_188.host, db_188.port, server))
-    df.to_sql(name.split('.')[1], engine, if_exists='append', index=False)
-    db_188.close()
+    # db_188 = tools.Db(**db_dict.get('db_188'))
+    # db_188.execute('delete from %s.%s' % (server, name.split('.')[1]))
+    # engine = create_engine(
+    #     'mysql+pymysql://%s:%s@%s:%s/%s' % (db_188.user, db_188.passwd, db_188.host, db_188.port, server))
+    # df.to_sql(name.split('.')[1], engine, if_exists='append', index=False)
+    # db_188.close()
+    df.to_csv('%s.%s' % (server, name), index=False)
 
 
 def data_sync(server):
@@ -36,7 +37,6 @@ def mul_data_sync():
         proc.start()
     for proc in proc_list:
         proc.join()
-
 
 if __name__ == '__main__':
     mul_data_sync()
