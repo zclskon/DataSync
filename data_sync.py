@@ -18,7 +18,7 @@ def sync_table(server, name):
     #     'mysql+pymysql://%s:%s@%s:%s/%s' % (db_188.user, db_188.passwd, db_188.host, db_188.port, server))
     # df.to_sql(name.split('.')[1], engine, if_exists='append', index=False)
     # db_188.close()
-    df.to_csv('%s.%s' % (server, name), index=False)
+    df.to_csv('%s.%s.csv' % (server, name), index=False)
 
 
 def data_sync(server):
